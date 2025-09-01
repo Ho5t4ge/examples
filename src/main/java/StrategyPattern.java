@@ -1,6 +1,11 @@
 import java.util.function.Function;
 
 public class StrategyPattern {
+   /**
+   * Реализовал получение данных из базы с использованием Spring Data JPA репозиториев с динамической загрузкой реализации специфической логики по коду системы.
+   * Применял паттерн стратегий для выбора конкретной реализации интерфейса на основе кода документа, что обеспечивает расширяемость и адаптивность бизнес-логики.
+   * Инкапсулировал преобразование данных в DTO для передачи между слоями приложения**/
+  
   public UDocumentHdrDto getHdrById(long documentSystemId, long documentNameId, long hdrId) {
     UDocumentHdrSystem uDocumentHdrSystem = uDocumentHdrSystemRepository.findBySystemNameAndHdrId(documentSystemId, documentNameId, hdrId);
     IUDocumentSystemEditSpecific specific = (IUDocumentSystemEditSpecific) getSystemSpecific(uDocumentHdrSystem.getDocumentSystemName().getDocumentSystem().getCode());
@@ -27,3 +32,4 @@ public class StrategyPattern {
     return null;
   }
 }
+
